@@ -31,7 +31,7 @@ $admin=new AdminManager();
     </div>
 
     <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-      <h1 class="display-4">Scientist Details</h1>
+      <h1 class="display-4">Project Details</h1>
       <a    href="report.php" class="btn btn-primary">View Report</a>
       <hr>
       <!-- <p class="lead">Quickly build an effective pricing table for your potential customers with this Bootstrap example. It's built with default Bootstrap components and utilities with little customization.</p>
@@ -46,20 +46,35 @@ $admin=new AdminManager();
       <div class=" mb-3 ">
 
       <div class="card" >
-  <h5 class="card-header" style="background-color:#11c9cf; color:white">Scientists</h5>
+  <h5 class="card-header" style="background-color:#11c9cf; color:white">PROJECTS</h5>
        <div class="card-body">
         <h3  ng-If="scientists.length==0">NO RESULUT FOUND</h3>
-       <div class="card" style="margin-bottom: 10px;"   ng-repeat="S in scientists  | filter : search track by $index">
-         <h5 class="card-header " style="background-color: #A9E8F3;" > [{{$index+1}}] {{S.name}} </h5>
-         <div class="card-body">
-         <div class="card" style="margin: 50px;"   ng-repeat="Q in S.quaters">
-         <h5 class="card-header" > {{Q.name}} </h5>
-         <div class="card-body"  >
-          <p>{{Q.description}}</p>
-          <a  ng-If="Q.filename.length>0"   href="admin/uploads/{{Q.filename}}" class="btn btn-primary">view Pdf</a>
-          <a  ng-If="Q.pptname.length>0"   href="admin/uploads/{{Q.pptname}}" class="btn btn-primary">view PPT {{Q.pptname.length}}</a>
+
+        <div class="box-body">
+              
+        
+           <table id="example2" class="table table-bordered table-hover">
+                <thead>
+                <tr>
+                  <th>SNO</th>
+                  <th>Project Name</th>
+                  <th>Month Name</th>
+                  <th>Week Name</th>
+                  <th>Description</th>
+                 
+                </tr>
+                </thead>
+               
+                <tr ng-repeat="S in scientists  | filter : search track by $index">
+                     <td>{{$index+1}}</td>
+                     <td>{{S.ProjectName}}</td>
+                     <td>{{S.MonthName}}</td>
+                     <td>{{S.WeekName}}</td>
+                     <td>{{S.description}}</td>
+                </tr>
+           </table>
        
-        </div>
+
          </div>
          </div>
          </div>
@@ -108,12 +123,11 @@ $admin=new AdminManager();
     app.controller("appController", function ($scope, $http) {
       $scope.scientists=[];
       $scope.search = '';
-     console.log("Working")
-
+ 
      $http.get('admin/controllers/GetScientists.php').then(function(data){
          $scope.scientists = data.data;
-         console.log(data)
-         console.log("Working")
+        // console.log($scope.scientists)
+         console.log("data loaded")
         });
 
     });

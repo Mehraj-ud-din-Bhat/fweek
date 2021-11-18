@@ -4,5 +4,5 @@ require_once('AdminController.php');
 $admin=new AdminManager();
 
 
-echo json_encode($admin->getDetails());
+echo json_encode($admin->getProjectDetails());
 ?>

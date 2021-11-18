@@ -78,22 +78,24 @@ $admin->isLoggedIn();
            ?>
       <tr>
                   <td><?php echo $count   ?></td>
-                  <td><?php echo $sc['ProjectName']   ?>
-                  </td>
-                  <td><?php echo $sc['MonthName']   ?></td>
-                  <td><?php echo $sc['WeekName']   ?></td>
-                  <td><?php echo $sc['description']   ?></td>
+                  <td><?php echo $sc['ProjectName']   ?> </td>
+                  <td><?php echo $sc['MonthName']     ?>  </td>
+                  <td><?php echo $sc['WeekName']     ?> </td>
+                  <td><?php echo $sc['description']   ?> </td>
 
                   <td> <?php if($sc['filename']){  ?>  <a class="btn btn-primary" href="uploads/<?php echo$sc['filename']  ?>">View PDF/Image</a>
                         <?php }?>
                         <?php if($sc['ppt_name']){  ?> 
-                      <a class="btn btn-primary"  href="uploads/<?php echo$sc['pptname']  ?>">View PTT </a></td>
-                      <?php }?>
+                      <a class="btn btn-primary"  href="uploads/<?php echo $sc['pptname']  ?>">View PTT </a>
+                    </td>
+                      <?php 
+                    
+                          }?>
                    
-                   
-                      <td><a href="edit.php?id=<?php echo $sc['id'] ?>"  class="btn btn-primary">Edit </a>
+                     
+                      <td>
                       <a class="btn btn-danger" onclick="confirmation(<?php  echo $sc['id'] ?>)" >Delete </a>
-                </td>
+                      </td>
                 </tr>
       <?php
                }
@@ -124,14 +126,16 @@ $admin->isLoggedIn();
 
 
 <script>
-    function confirmation(id){
+   
+    function confirmation(id)
+    {
      let T=confirm("Are you sure you want to delete this Scientist Detail");
     if (T==true){
         window.location.href="deletescientist.php?delete="+id;
         console.log(id)
     }
     return T;
-}
+    }
 </script>
 
 <script>

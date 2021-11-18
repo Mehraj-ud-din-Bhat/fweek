@@ -156,7 +156,7 @@ function getPendingScientists()
 
     function getScientistDeatils()
     {
-        $sql="SELECT S.name as ProjectName,q.name as MonthName,w.name as WeekName,F.description,f.filename,f.ppt_name FROM final as F
+        $sql="SELECT F.id, S.name as ProjectName,q.name as MonthName,w.name as WeekName,F.description,f.filename,f.ppt_name FROM final as F
 JOIN scientist as S on S.id=F.projectId
 JOIN week as W on F.weekid=w.id
 JOIN quater as q  on q.id=f.monthId";
@@ -164,11 +164,37 @@ JOIN quater as q  on q.id=f.monthId";
         if($result=$this->connection->query($sql))
         {
                 return $result;
+                
 
               //return false;
         }
 
         return false;
+    }
+
+
+    function getProjectDetails()
+    {
+        $sql="SELECT F.id, S.name as ProjectName,q.name as MonthName,w.name as WeekName,F.description,f.filename,f.ppt_name FROM final as F
+JOIN scientist as S on S.id=F.projectId
+JOIN week as W on F.weekid=w.id
+JOIN quater as q  on q.id=f.monthId";
+    $array=array();
+        if($result=$this->connection->query($sql))
+        {
+               
+            
+            while($qa =mysqli_fetch_assoc($result))
+                    {
+                      array_push($array,$qa);
+                    }
+          
+
+
+              //return false;
+        }
+
+        return $array;
     }
 
 
