@@ -61,6 +61,7 @@ $admin=new AdminManager();
                   <th>Month Name</th>
                   <th>Week Name</th>
                   <th>Description</th>
+                  <th>Files</th>
                  
                 </tr>
                 </thead>
@@ -71,6 +72,11 @@ $admin=new AdminManager();
                      <td>{{S.MonthName}}</td>
                      <td>{{S.WeekName}}</td>
                      <td>{{S.description}}</td>
+                     <td>
+                       <a ng-if="S.ppt_name.length>0"  class="btn btn-primary"  href="admin/uploads/{{S.ppt_name}}">View PPT </a>
+                       <a ng-if="S.filename.length>0"  class="btn btn-primary"  href="admin/uploads/{{S.filename}}">View FILE </a>
+                       <span ng-if="S.ppt_name.length==0 && S.filename.length==0" >No files uploaded</span>
+                    </td>
                 </tr>
            </table>
        
@@ -126,7 +132,7 @@ $admin=new AdminManager();
  
      $http.get('admin/controllers/GetScientists.php').then(function(data){
          $scope.scientists = data.data;
-        // console.log($scope.scientists)
+         console.log($scope.scientists)
          console.log("data loaded")
         });
 
