@@ -175,33 +175,55 @@ JOIN quater as q  on q.id=f.monthId";
 
     function getProjectDetails()
     {
-        $sql="SELECT F.id, S.name as ProjectName,q.name as MonthName,w.name as WeekName,F.description,f.filename,f.ppt_name FROM final as F
-JOIN scientist as S on S.id=F.projectId
-JOIN week as W on F.weekid=w.id
-JOIN quater as q  on q.id=f.monthId";
-    $array=array();
+       
+        $array=array();
+        $sql="SELECT * FROM scientist";
         if($result=$this->connection->query($sql))
         {
-               
-            
-            while($qa =mysqli_fetch_assoc($result))
+                 $r=array();
+                   while ($row = $result->fetch_assoc()) {
+                       $r=null;
+                    $quaters=$this->getProjectEntries($row['id']);
+                    
+                    $arr=[];
+
+                    while($qa =mysqli_fetch_assoc($quaters))
                     {
-                      array_push($array,$qa);
+                      array_push($arr,$qa);
                     }
-          
 
+                    $row['entries']=$arr;
+                   array_push($array,$row);
+                    }
 
-              //return false;
+                    return $array;
         }
 
-        return $array;
+        return  $array;
+    }
+
+
+ function   getProjectEntries($id)
+    {
+        $sql="SELECT F.id, S.name as ProjectName,q.name as MonthName,w.name as WeekName,F.description,f.filename,f.ppt_name FROM final as F
+        JOIN scientist as S on S.id=F.projectId
+        JOIN week as W on F.weekid=w.id
+        JOIN quater as q  on q.id=f.monthId where S.id = ".$id;
+     
+        // if($result=$this->connection->query($sql))
+        //   {
+        //         $result;
+        //   }
+          $result=$this->connection->query($sql);
+
+       
+        return  $result;
     }
 
 
 
 
-
-
+    //---REPORT 
 
     function getReport()
     {
